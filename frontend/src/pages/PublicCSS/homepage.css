@@ -1,0 +1,140 @@
+div {
+    line-height: normal;
+}
+
+.content-box {
+    height: auto !important;
+    /*min-height: 100vh;*/
+    margin-bottom: 50px;
+}
+
+.page-button {
+    margin-top: 1rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    border: 2px solid black;
+    background-color: #eeeeee;
+    max-width: 200px;
+    width: calc(100% - 0.5rem);
+    height: 36px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 4px;
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.page-button:hover{
+    border: 2px solid #eeeeee;
+    background-color: black;
+    width: calc(100% - 0.5rem);
+    height: 36px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 4px;
+    color: #eeeeee;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.padding {
+    height: 50px;
+}
+
+.homepage-card {
+    background-color: rgb(211, 185, 36);
+    width: auto;
+    margin: 1rem;
+}
+
+.homepage-card > * {
+    align-self: center;
+}
+
+.homepage-image {
+    height: 80px;
+    width: 80px;
+    border-radius: 40px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: magenta;
+    display: inline-block;
+}
+
+.homepage-pet-name {
+    display: inline-block;
+    align-self: center;
+    margin-left: 2rem;
+    font-weight: bold;
+}
+
+.homepage-card-row {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    text-align: left;
+}
+
+.homepage-pencil {
+    font-size: 30px;
+    color: black;
+}
+
+.createlisting-form-row {
+    padding-bottom: 50px;
+}
+
+.createlisting-textarea{
+    min-height: 100px;
+}
+
+.createlisting-radio-label {
+    padding-bottom: 10px;
+}
+
+.userhomepage-card {
+    background-color: rgb(211, 185, 36);
+    width: auto;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.homepage-card-message {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 1rem;
+    float: none;
+}
+
+.cancel-request-homepage {
+    font-size: 0.5rem;
+}
+
+.x-button-homepage {
+    font-size: 2rem;
+}
+
+.button-disable {
+    border: 2px solid black;
+    max-width: 200px;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 4px;
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: aliceblue;
+}
+
+.error-text {
+	color: maroon;
+}
+

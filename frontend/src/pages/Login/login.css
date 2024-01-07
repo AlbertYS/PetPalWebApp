@@ -1,0 +1,182 @@
+/*
+ * CSC309 Project phase 1 template style sheet
+ */
+
+ #root {
+  margin: none;
+ }
+ .center-box {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.signin-box {
+  width: calc(50% - 2rem);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.signup-box {
+  width: calc(50% - 2rem);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  text-align: center;
+}
+
+.greeting-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.greeting {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin: 1rem;
+}
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  width: calc(100% - 4rem);
+  align-items: center;
+}
+
+.signin-form > label {
+  margin: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-weight: bold;
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  margin-top: 2rem;
+  min-width: 360px;
+  min-height: 146px;
+  width: 30%;
+  height: 30vw;
+  max-width: 400px;
+  max-height: 146px;
+}
+
+.signup-button {
+  background-color: #eeeeee;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  width: 250px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 4px;
+  color: black;
+  text-decoration: none;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.signup-button:hover {
+  background-color: black;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #eeeeee;
+  width: 250px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 4px;
+  color: #eeeeee;
+  text-decoration: none;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.signin-button {
+  background-color: #eeeeee;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  width: 250px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 4px;
+  color: black;
+  text-decoration: none;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.signin-button:hover {
+  background-color: black;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #eeeeee;
+  width: 250px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 4px;
+  color: #eeeeee;
+  text-decoration: none;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media only screen and (max-width: 640px) {
+  .center-box {
+    flex-direction: column;
+  }
+
+  .signin-box {
+    width: calc(70% - 2rem);
+    justify-content: left;
+  }
+
+  .signin-form {
+    width: calc(90% - 2rem);
+    margin: 0;
+  }
+
+  .signup-box {
+    width: auto;
+    justify-content: left;
+  }
+
+  .signup-content {
+    width: auto;
+    justify-content: left;
+  }
+}
+
+.error-text {
+  color: maroon;
+  margin-bottom: 35px;
+}

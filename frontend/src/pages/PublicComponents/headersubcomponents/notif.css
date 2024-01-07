@@ -1,0 +1,18 @@
+.notif-spacer {
+    height: 110px;
+    margin: 0;
+}
+
+.notif-box {
+    background-color: lightgray;
+    margin: 0;
+    padding: 10px;
+    border: 3px solid grey;
+}
+
+.notif-box-read {
+    background-color: gray;
+    margin: 0;
+    padding: 10px;
+    border: 3px solid darkgrey;
+}

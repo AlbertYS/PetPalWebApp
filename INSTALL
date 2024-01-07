@@ -1,0 +1,279 @@
+# Welcome to petpal
+This is a document to guide you on setting up petpal locally.
+
+Before you begin, make sure you have the following installed on your computer:
+- node.js
+- npm
+- python
+- python venv (you can run `pip install virtualenv`)
+
+Once you have all of these installed, to setup the backend, run:
+`$source setup.sh`
+It will ask you to create a superuser. Note, this also wipes the db.sqlite3 and any image files.
+
+If you want to run with our sample data, you will have to copy over the images folder into P3/backend/images and
+the db.sqlite3 into P3/backend/petpal/db.sqlite3
+
+To start the server, simply run `python backend/petpal/manage.py runserver`
+
+Now its time to setup the frontend. Open a new terminal. Make sure your working directory is in P3/frontend/
+
+Run `npm install` to install the packages declared in frontend/package.json
+
+Once all the packages have been installed, to run the frontend server, run `npm start`
+
+Go to localhost:3000/ to access the website.
+
+You can also login to the backend from localhost:8000/admin/ using the following credentials:
+- Username: petpal
+- Password: 123
+
+Now you can try login in to the frontend as a user or shelter; the names are in the database, all passwords are set to `randompw235`
+
+# Deployment
+
+### Setup
+
+Deployment is done on an Ubuntu 20.04 LTS machine, in our case, an EC2 instance from AWS.
+
+A lot of the setup is the same as for setting up on a local machine. We will assume same initial conditions (python, node, etc.).
+
+In addition, we want to make sure `apache` is installed for running our servers.
+
+We will also assume the user has `sudo` permissions.
+
+First clone this repo in the home directory:
+
+```
+cd ~
+git clone https://markus.teach.cs.toronto.edu/git/2023-09/csc309/group_4311
+```
+
+It is not strictly neccesary to clone into the home directory, but we will be configuring a lot of file under this assumption.
+
+Now we create our virtual environment:
+
+```
+cd group_4311/P3
+python -m venv venv
+source venv/bin/activate
+```
+
+We will pip install the necessary libraries
+
+```
+pip install asgiref
+pip install Django
+pip install django-cors-headers
+pip install django-filter
+pip install django-rest-framework
+pip install djangorestframework
+pip install djangorestframework-simplejwt
+pip install gunicorn
+pip install Pillow
+pip install PyJWT
+pip install pytz
+pip install sqlparse
+pip install typing_extensions
+```
+
+First thing, there may be some permission errors. We need `www-data` to have read, write, execute permissions in all of the files under P3.
+
+Next we want to make sure is that settings.py is configured correctly. Edit settings.py:
+
+```
+sudo nano ~/group_4311/P3/backend/petpal/petpal/settings.py
+```
+
+We want to make sure that the middleware is in the correct order:
+
+```
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+]
+```
+
+and these two lines are included somewhere:
+
+```
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/home/ubuntu/group_4311/P3/backend/petpal/media/'
+```
+
+and also make sure that `DEBUG = False` so that the server does not give debugging pages.
+
+In the `backend/petpal/petal/wsgi.py`, replace `os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'accounts.settings')` with `os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'petpal.settings')`
+
+Next, perform the following:
+
+```
+cd ~/group_4311/P3/backend/petpal/
+sudo mkdir media
+cd ..
+sudo cp -r images/* petpal/media/images
+```
+
+Remember to ensure that `www-data` has access to all of the media folder.
+
+Then, we will collect the static files. When prompted, enter `y`:
+
+```
+cd ~/group_4311/P3/backend/petpal/
+python manage.py collectstatic
+```
+
+We are done settingup the backend, now to the frontend:
+
+```
+cd ~/group_4311/P3/frontend/
+npm install
+cd public
+sudo nano .htaccess
+```
+
+Inside of .htaccess, insert the following:
+
+```
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule . /index.html [L]
+```
+
+You are also going to need the URL of your backend, and we need to change the first line in `frontend/src/urlConfig.js` from `localhost:8000` to `ip_addr:8000`, ip_addr representing whatever the IP address of your machine is. In our case, its `http://3.21.231.137`, so that should say `http://3.21.231.137:8000`.
+
+Next, we need to configure a few things in apache.
+
+```
+sudo nano /etc/apache2/apache2.conf
+```
+
+Ensure the following lines exist:
+
+```
+<Directory /home/ubuntu/group_4311/P3/backend/petpal/>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+
+<Directory /home/ubuntu/group_4311/P3/frontend>
+  Options Indexes FollowSymLinks
+  AllowOverride All
+  Require all granted
+</Directory>
+```
+
+Next:
+
+```
+sudo nano /etc/apache2/ports.conf
+```
+
+Add `Listen 8000` in a blank line somehwere.
+
+Lastly, run:
+
+```
+sudo a2enmod rewrite
+```
+
+### Backend
+
+```
+sudo nano /etc/apache2/sites-available/petpal.conf
+```
+
+Add the following:
+
+```
+<VirtualHost *:8000>
+    ServerAdmin andyruifeng.guo@mail.utoronto.ca
+    DocumentRoot /home/ubuntu/group_4311/P3/backend/petpal/
+    ErrorLog ${APACHE_LOG_DIR}/your-domain.com_error.log
+    CustomLog ${APACHE_LOG_DIR}/your-domain.com_access.log combined
+
+    Alias /static /home/ubuntu/group_4311/P3/backend/petpal/static
+    <Directory /home/ubuntu/group_4311/P3/backend/petpal/static>
+        Require all granted
+    </Directory>
+    Alias /media /home/ubuntu/group_4311/P3/backend/petpal/media
+    <Directory /home/ubuntu/group_4311/P3/backend/petpal/media>
+        Require all granted
+    </Directory>
+    Alias /images /home/ubuntu/group_4311/P3/backend/images
+    <Directory /home/ubuntu/group_4311/P3/backend/images>
+        Require all granted
+    </Directory>
+    <Directory /home/ubuntu/group_4311/P3/backend/petpal/petpal>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+
+    WSGIPassAuthorization On
+    WSGIDaemonProcess petpal python-path=/home/ubuntu/group_4311/P3/backend/petpal python-home=/home/ubuntu/group_4311/P3/venv
+    WSGIProcessGroup petpal
+    WSGIScriptAlias / /home/ubuntu/group_4311/P3/backend/petpal/petpal/wsgi.py
+</VirtualHost>
+```
+
+### Frontend
+
+```
+sudo nano /etc/apache2/sites-available/petpal_frontend.conf
+```
+
+Add the following:
+
+```
+<VirtualHost *:80>
+    ServerAdmin your-email@example.com
+    DocumentRoot /home/ubuntu/group_4311/P3/frontend/build
+
+    ErrorLog ${APACHE_LOG_DIR}/frontend_error.log
+    CustomLog ${APACHE_LOG_DIR}/frontend_access.log combined
+
+    <Directory /home/ubuntu/group_4311/P3/frontend/build>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    <Directory /home/ubuntu/group_4311/P3/frontend/build>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+        DirectoryIndex index.html
+    </Directory>
+    Alias /static /home/ubuntu/group_4311/P3/frontend/build/static
+    <Directory /home/ubuntu/group_4311/P3/frontend/build/static>
+        Require all granted
+    </Directory> 
+</VirtualHost>
+```
+
+### Final steps
+
+In the terminal, run the following:
+
+```
+sudo a2ensite petpal.conf
+sudo a2ensite petpal_frontend.conf
+sudo systemctl start apache2
+```
+
+The frontend and backend should now be accessible. You can access it through the IP address of your machine
+
+If the IP address of the machine is `3.21.231.137`, then:
+- You can find the frontend at `http://3.21.231.137/login`
+- The backend is at `http://3.21.231.137:8000/admin/`

@@ -1,0 +1,261 @@
+/*
+ * CSC309 Project phase 1 template style sheet
+ */
+
+body {
+  padding: 0;
+}
+
+.outerbox {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  font-family: sans-serif;
+}
+
+div {
+  line-height: normal;
+}
+
+body {
+  background: rgb(243, 234, 226);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+div.content-box {
+  box-sizing: border-box;
+  width: calc(100vw - 200px - 15px);
+  margin-left: 200px;
+  margin-top: 125px;
+  padding: 50px;
+}
+
+/* Elements related to the header and header dropdown menus */
+
+.header {
+  width: calc(100vw - 200px - (100vw - 100%));
+  margin-left: 200px;
+  height: 125px;
+  background: rgb(224, 100, 17);
+  position: fixed;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  top: 0;
+  right: 0;
+  z-index: 500;
+}
+
+.dropdown-tag {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+.dropdown-tag:hover {
+  color: rgb(243, 234, 226);
+}
+
+details > p {
+  margin-top: 0px;
+  padding: 10px;
+  background: #d4d2d2;
+  border: solid;
+  border-width: 2px;
+  border-color: #b3b1b1;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+details > a {
+  margin: 0px;
+  padding: 1px;
+  background: #d4d2d2;
+  border: solid;
+  border-width: 2px;
+  border-color: #b3b1b1;
+  text-align: left;
+  color: #000000;
+}
+
+details > summary {
+  list-style: none;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+details {
+  max-width: 500px;
+  width: 25vw;
+  background: #dddddd;
+  position: absolute;
+  border-radius: 5px;
+  border-width: 3px;
+  border: solid;
+  border-color: #4e4e4e;
+}
+
+details.closed {
+  border-color: rgb(224, 100, 17)
+}
+
+details.left-dropdown {
+  left: 10px;
+  top: 7px;
+  text-align: left;
+}
+
+details.right-dropdown {
+  right: 10px;
+  top: 7px;
+  text-align: right;
+}
+
+/* Elements related to the sidebar */
+
+.side-bar {
+  background: rgb(211, 185, 36);
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.active-icon {
+  background: #a18e1d;
+  font-weight: bold;
+}
+
+.sidebar-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+}
+
+.sidebar-icon:hover {
+  background: #97851b;
+}
+
+.active-icon:hover {
+  background: #7a6b16;
+}
+
+.icon-text {
+  color: #000000;
+  font-size: 90px;
+  text-align: center;
+  padding: 0;
+}
+
+.icon-subtext {
+  text-align: center;
+  font-size: 22px;
+  color: black;
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.sidebar-icon > div {
+  justify-items: center;
+  display: grid;
+}
+
+@media only screen and (max-width: 640px) {
+  .homepage-card-row {
+    display: none;
+  }
+
+  .content-box {
+    padding: 1rem !important;
+    margin-left: 80px !important;
+    margin-right: 0 !important;
+    width: calc(100vw - 80px - 2rem) !important;
+    margin-top: 80px !important;
+  }
+
+  .icon-subtext {
+    display: none;
+  }
+
+  .dropdown-tag {
+    top: 20px;
+    font-size: 0.8rem;
+  }
+
+  .side-bar {
+    width: 80px;
+  }
+
+  .sidebar-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .header {
+    width: calc(100vw - 80px - (100vw - 100%));
+    margin-left: 80px;
+    height: 80px;
+  }
+
+  .icon-text {
+    font-size: 50px !important;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1rem !important;
+  }
+
+  h3 {
+    font-size: 0.8rem !important;
+  }
+
+  .request-header {
+    display: grid;
+  }
+
+  .homepage-card {
+    height: auto !important;
+  }
+
+  a {
+    font-size: 0.8rem !important;
+  }
+
+  div {
+    font-size: 0.8rem !important;
+  }
+
+  .page-button {
+    width: 150px !important;
+  }
+
+  .button-disable {
+    width: 150px !important;
+  }
+
+  body {
+    padding: 1rem !important;
+  }
+}

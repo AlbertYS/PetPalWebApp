@@ -1,0 +1,4 @@
+from .notificationListView import NotificationListView
+from .notificationGetView import NotificationGetView
+from .notificationDeleteView import NotificationDeleteView
+from .notificationUpdateView import NotificationUpdateView

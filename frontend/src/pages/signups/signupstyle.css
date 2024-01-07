@@ -1,0 +1,101 @@
+/*
+ * CSC309 Project phase 1 user signup style sheet
+ */
+
+form {
+  overflow: visible;
+}
+
+.form-control {
+  width: 95%;
+}
+
+body {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  padding-right: 130px;
+  padding-left: 130px;
+}
+
+.signup-div {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  width: 100%;
+}
+
+input,
+textarea {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-bottom: 36px;
+  display: block;
+  border: solid;
+  border-color: #253952;
+  border-width: 2px;
+  border-radius: 4px;
+  resize: none;
+}
+
+#submit {
+  background-color: #eeeeee;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  width: 250px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 4px;
+  color: black;
+  text-decoration: none;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+#submit:hover {
+  background-color: black;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #eeeeee;
+  width: 250px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 4px;
+  color: #eeeeee;
+  text-decoration: none;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width-box {
+  width: 47%;
+  display: inline-block;
+  margin: 0px;
+}
+
+.form-flex-box {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  width: 100%;
+}
+
+.error-text {
+  color: maroon;
+  margin-bottom: 35px;
+}
